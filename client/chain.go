@@ -51,14 +51,15 @@ func (r *rPCBuilder) GetTransaction(tid string) (*client.ChainTransaction, error
 	if err != nil {
 		return nil, err
 	}
-	number, err := r.GetIndexByID(tx.TxID)
+	number, err := r.getIndexByID(tx.TxID)
 	if err == nil {
 		tx.Height = number
 	}
 	return tx, nil
 }
 
-func (r *rPCBuilder) GetIndexByID(txid string) (int64, error) {
+// 获取交易高度
+func (r *rPCBuilder) getIndexByID(txid string) (int64, error) {
 	chainName := r.ChaincodeName
 	defer func() { r.ChaincodeName = chainName }()
 	r.Function = GetBlockByTxID

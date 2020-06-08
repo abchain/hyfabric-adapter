@@ -210,6 +210,6 @@ func (r *rPCBuilder) Query(function string, args [][]byte) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	logger.Debug("query success reault:", string(str))
+	logger.Debug("query success result:", string(str))
 	return str, err
 }
