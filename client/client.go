@@ -1,6 +1,10 @@
 package hyfabric
 
 import (
+	fchannel "github.com/hyperledger/fabric-sdk-go/pkg/client/channel"
+	fledger "github.com/hyperledger/fabric-sdk-go/pkg/client/ledger"
+	"github.com/hyperledger/fabric-sdk-go/pkg/core/config"
+	"github.com/hyperledger/fabric-sdk-go/pkg/fabsdk"
 	"github.com/spf13/viper"
 	"hyperledger.abchain.org/adapter/hyfabric/client/channel"
 	"hyperledger.abchain.org/adapter/hyfabric/client/ledger"
@@ -9,6 +13,7 @@ import (
 type hyFabricClient struct {
 	chainInfo ChainInfo
 	caller    Caller
+	sdk       *fabsdk.FabricSDK
 }
 
 type RpcClient interface {
@@ -32,14 +37,36 @@ type Caller interface {
 }
 
 func NewRPCConfig() *hyFabricClient {
-	return &hyFabricClient{
-		chainInfo: ledger.NewLedgerClient(),
-		caller:    channel.NewChannelClient(nil),
-	}
+	return &hyFabricClient{}
 }
 
 //Load 利用viper 加载配置   配置文件参考core.yaml
 func (c *hyFabricClient) Load(vp *viper.Viper) error {
+	configPath := vp.GetString("configpath")
+	sdk, err := fabsdk.New(config.FromFile(configPath))
+	if err != nil {
+		return err
+	}
+
+	channelId := vp.GetString("channelid")
+	user := vp.GetString("user")
+	org := vp.GetString("org")
+	chC := sdk.ChannelContext(channelId, fabsdk.WithUser(user), fabsdk.WithOrg(org))
+
+	ledgerCli, err := fledger.New(chC)
+	if err != nil {
+		return err
+	}
+
+	channelCli, err := fchannel.New(chC)
+	if err != nil {
+		return err
+	}
+
+	ccName := vp.GetString("chaincode")
+	c.caller = channel.NewChannelClient(ccName, channelCli)
+	c.chainInfo = ledger.NewLedgerClient(ledgerCli)
+	c.sdk = sdk
 	return nil
 }
 
@@ -55,4 +82,5 @@ func (c *hyFabricClient) Chain() (ChainInfo, error) {
 }
 
 func (c *hyFabricClient) Quit() {
+	c.sdk.Close()
 }

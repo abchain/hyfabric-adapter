@@ -24,10 +24,10 @@ type Client struct {
 	chClient    *channel.Client
 }
 
-func NewChannelClient(spec *RpcSpec) *Client {
+func NewChannelClient(ccName string, cli *channel.Client) *Client {
 	return &Client{
-		chainCodeId: spec.ChaincodeName,
-		chClient:    nil,
+		chainCodeId: ccName,
+		chClient:    cli,
 	}
 }
 

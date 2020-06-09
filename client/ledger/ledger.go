@@ -17,8 +17,8 @@ type Client struct {
 	*ledger.Client
 }
 
-func NewLedgerClient() *Client {
-	return &Client{nil}
+func NewLedgerClient(cli *ledger.Client) *Client {
+	return &Client{cli}
 }
 
 //
