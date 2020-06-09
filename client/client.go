@@ -1,9 +1,9 @@
 package hyfabric
 
 import (
-	"github.com/abchain/adapter-hyfabric/client/channel"
-	"github.com/abchain/adapter-hyfabric/client/ledger"
 	"github.com/spf13/viper"
+	"hyperledger.abchain.org/adapter/hyfabric/client/channel"
+	"hyperledger.abchain.org/adapter/hyfabric/client/ledger"
 )
 
 type hyFabricClient struct {

@@ -3,5 +3,13 @@ module hyperledger.abchain.org/adapter/hyfabric
 go 1.12
 
 require (
-	hyperledger.abchain.org v0.1.0 
+	github.com/fsouza/go-dockerclient v1.6.5 // indirect
+	github.com/hyperledger/fabric v1.4.7
+	github.com/hyperledger/fabric-amcl v0.0.0-20200424173818-327c9e2cf77a // indirect
+	github.com/hyperledger/fabric-sdk-go v1.0.0-beta2
+	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7 // indirect
+	github.com/sirupsen/logrus v1.6.0
+	github.com/spf13/viper v1.2.1
+	github.com/sykesm/zap-logfmt v0.0.3 // indirect
+	go.uber.org/zap v1.15.0 // indirect
 )
