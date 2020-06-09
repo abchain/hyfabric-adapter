@@ -287,7 +287,7 @@ func getChainCodeEventsByByte(data []byte) (*pb.ChaincodeEvent, error) {
 
 	chdr, err := futils.UnmarshalChannelHeader(payload.Header.ChannelHeader)
 	if err != nil {
-		return nil, fmt.Errorf("Could not extract channel header from envelope, err %s", err)
+		return nil, fmt.Errorf("Could not extract caller header from envelope, err %s", err)
 	}
 
 	if common.HeaderType(chdr.Type) == common.HeaderType_ENDORSER_TRANSACTION {

@@ -8,32 +8,17 @@ import (
 	"github.com/hyperledger/fabric/protos/peer"
 	futils "github.com/hyperledger/fabric/protos/utils"
 	"github.com/sirupsen/logrus"
-	"github.com/spf13/viper"
 	"time"
 )
 
 var log = logrus.New()
 
-type RpcClient interface {
-	Chain() (ChainInfo, error)
-	Caller(*RpcSpec) (Caller, error)
-	Load(*viper.Viper) error
-	Quit()
-}
-
-type ChainClient interface {
-	ViaWeb(*viper.Viper) ChainInfo
-}
-
-type ChainInfo interface {
-	GetChain() (*Chain, error)
-	GetBlock(int64) (*ChainBlock, error)
-	GetTransaction(string) (*ChainTransaction, error)
-	GetTxEvent(string) ([]*ChainTxEvents, error)
-}
-
 type Client struct {
 	*ledger.Client
+}
+
+func NewLedgerClient() *Client {
+	return &Client{nil}
 }
 
 //
@@ -95,13 +80,14 @@ func (c *Client) GetTransaction(txid string) (*ChainTransaction, error) {
 	return envelopeToTrasaction(int64(block.GetHeader().GetNumber()), (*common.Envelope)(txPro.TransactionEnvelope))
 }
 
-func (c *Client) GetTxEvent(txid string) (*ChainTxEvents, error) {
+func (c *Client) GetTxEvent(txid string) ([]*ChainTxEvents, error) {
 	transactionId := fab.TransactionID(txid)
 	txPro, err := c.QueryTransaction(transactionId)
 	if err != nil {
 		return nil, err
 	}
-	return envelopeToTxEvents((*common.Envelope)(txPro.TransactionEnvelope))
+	env, err := envelopeToTxEvents((*common.Envelope)(txPro.TransactionEnvelope))
+	return []*ChainTxEvents{env}, err
 }
 
 type Chain struct {
@@ -135,14 +121,6 @@ type Caller interface {
 	Deploy(method string, arg [][]byte) (string, error)
 	Invoke(method string, arg [][]byte) (string, error)
 	Query(method string, arg [][]byte) ([]byte, error)
-}
-
-type RpcSpec struct {
-	//notice chaincode name is different to the ccname in txgenerator, the later
-	//is used in the hyperledger-project compatible tx
-	ChaincodeName string
-	Attributes    []string
-	Options       *viper.Viper
 }
 
 func envelopeToTrasaction(height int64, env *common.Envelope) (*ChainTransaction, error) {
