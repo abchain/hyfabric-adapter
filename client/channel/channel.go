@@ -2,6 +2,7 @@ package channel
 
 import (
 	"fmt"
+	
 	"github.com/hyperledger/fabric-sdk-go/pkg/client/channel"
 	"github.com/spf13/viper"
 )

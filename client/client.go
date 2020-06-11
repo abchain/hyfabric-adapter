@@ -6,6 +6,7 @@ import (
 	"github.com/hyperledger/fabric-sdk-go/pkg/core/config"
 	"github.com/hyperledger/fabric-sdk-go/pkg/fabsdk"
 	"github.com/spf13/viper"
+
 	"hyperledger.abchain.org/adapter/hyfabric/client/channel"
 	"hyperledger.abchain.org/adapter/hyfabric/client/ledger"
 )

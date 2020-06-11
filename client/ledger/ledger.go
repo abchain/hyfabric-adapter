@@ -2,13 +2,15 @@ package ledger
 
 import (
 	"fmt"
+	"time"
+
+	"github.com/hyperledger/fabric-protos-go/common"
+	"github.com/hyperledger/fabric-protos-go/peer"
 	"github.com/hyperledger/fabric-sdk-go/pkg/client/ledger"
 	"github.com/hyperledger/fabric-sdk-go/pkg/common/providers/fab"
-	"github.com/hyperledger/fabric/protos/common"
-	"github.com/hyperledger/fabric/protos/peer"
-	futils "github.com/hyperledger/fabric/protos/utils"
 	"github.com/sirupsen/logrus"
-	"time"
+
+	"hyperledger.abchain.org/adapter/hyfabric/client/ledger/utils"
 )
 
 var log = logrus.New()
@@ -44,7 +46,7 @@ func (c *Client) GetBlock(height int64) (*ChainBlock, error) {
 	}
 
 	for _, data := range block.GetData().GetData() {
-		envelope, err := futils.GetEnvelopeFromBlock(data)
+		envelope, err := utils.GetEnvelopeFromData(data)
 		if err != nil {
 			log.Warnf("reconstructing envelope error: (%s)", err)
 			continue
@@ -129,12 +131,12 @@ func envelopeToTrasaction(height int64, env *common.Envelope) (*ChainTransaction
 		return nil, fmt.Errorf("invalid chaincode action in payload for tx %v : %v", txId, err)
 	}
 
-	pro, err := futils.GetProposal(ccActionPayload.GetChaincodeProposalPayload())
+	pro, err := utils.GetProposal(ccActionPayload.GetChaincodeProposalPayload())
 	if err != nil {
 		return nil, fmt.Errorf("get proposal error: %v", err)
 	}
 
-	spec, err := futils.GetChaincodeInvocationSpec(pro)
+	spec, err := utils.GetChaincodeInvocationSpec(pro)
 	if err != nil {
 		return nil, fmt.Errorf("get chaincode invocation spec error: %v", err)
 	}
@@ -158,15 +160,15 @@ func envelopeToTxEvents(env *common.Envelope) (*ChainTxEvents, error) {
 		return nil, fmt.Errorf("no HeaderType_ENDORSER_TRANSACTION type ")
 	}
 
-	resp, err := futils.GetProposalResponsePayload(ccActionPayload.GetAction().GetProposalResponsePayload())
+	resp, err := utils.GetProposalResponsePayload(ccActionPayload.GetAction().GetProposalResponsePayload())
 	if err != nil {
 
 	}
-	caPayload, err := futils.GetChaincodeAction(resp.GetExtension())
+	caPayload, err := utils.GetChaincodeAction(resp.GetExtension())
 	if err != nil {
 		return nil, fmt.Errorf("error unmarshalling chaincode action for block event: %s", err)
 	}
-	ccEvent, err := futils.GetChaincodeEvents(caPayload.GetEvents())
+	ccEvent, err := utils.GetChaincodeEvents(caPayload.GetEvents())
 	if ccEvent != nil {
 		return &ChainTxEvents{
 			TxID:      txId,
@@ -182,12 +184,12 @@ func envelopeToTxEvents(env *common.Envelope) (*ChainTxEvents, error) {
 func getChainCodeActionPayloadFromEnvelope(env *common.Envelope) (*peer.ChaincodeActionPayload, string, bool, error) {
 	var isEndorserTransaction = true
 	var txId = ""
-	payload, err := futils.GetPayload(env)
+	payload, err := utils.GetPayload(env)
 	if err != nil {
 		return nil, txId, isEndorserTransaction, fmt.Errorf("invalid payload: %v", err)
 	}
 
-	chdr, err := futils.UnmarshalChannelHeader(payload.GetHeader().GetChannelHeader())
+	chdr, err := utils.UnmarshalChannelHeader(payload.GetHeader().GetChannelHeader())
 	if err != nil {
 		return nil, txId, isEndorserTransaction, fmt.Errorf("invalid channel header: %v", err)
 	}
@@ -197,18 +199,18 @@ func getChainCodeActionPayloadFromEnvelope(env *common.Envelope) (*peer.Chaincod
 		isEndorserTransaction = false
 	}
 
-	tx, err := futils.GetTransaction(payload.GetData())
+	tx, err := utils.GetTransaction(payload.GetData())
 	if err != nil {
 		return nil, txId, isEndorserTransaction, fmt.Errorf("invalid transaction in payload data for tx: %v. error: %v", chdr.TxId, err)
 	}
 
-	ccActionPayload, err := futils.GetChaincodeActionPayload(tx.GetActions()[0].GetPayload())
+	ccActionPayload, err := utils.GetChaincodeActionPayload(tx.GetActions()[0].GetPayload())
 	if err != nil {
 		return nil, txId, isEndorserTransaction, fmt.Errorf("invalid chaincode action in payload for tx %v : %v", chdr.TxId, err)
 	}
 
 	if ccActionPayload.Action == nil {
-		return nil, txId, isEndorserTransaction, fmt.Errorf("action in chaincodeActionPayload for %v is nil", chdr.TxId, )
+		return nil, txId, isEndorserTransaction, fmt.Errorf("action in ChaincodeActionPayload for %v is nil", chdr.TxId, )
 	}
 	return ccActionPayload, txId, isEndorserTransaction, nil
 }
