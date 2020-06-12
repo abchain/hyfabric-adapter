@@ -1,3 +1,4 @@
+#s# The client section used by GO SDK.
 name: "testnet"
 #
 # Schema version of the content. Used by the SDK to apply the corresponding parsing rules.
@@ -18,11 +19,11 @@ client:
 
     # Global configuration for peer, event service and orderer timeouts
     # if this this section is omitted, then default values will be used (same values as below)
-    #  peer:
-    #    timeout:
-    #      connection: 10s
-    #      response: 180s
-    #      discovery:
+    peer:
+      timeout:
+        connection: 10s
+        response: 180s
+        discovery:
     #        # Expiry period for discovery service greylist filter
     #        # The channel client will greylist peers that are found to be offline
     #        # to prevent re-selecting them in subsequent retries.
@@ -36,42 +37,39 @@ client:
     # "pkg/fab/endpointconfig.go"
     # the client is free to override the default values by uncommenting and resetting
     # the values as they see fit in their config file
-  #    timeout:
-  #      connection: 15s
-  #      registrationResponse: 15s
-  #  orderer:
-  #    timeout:
-  #      connection: 15s
-  #      response: 15s
-  #  global:
-  #    timeout:
-  #      query: 180s
-  #      execute: 180s
-  #      resmgmt: 180s
-  #    cache:
-  #      connectionIdle: 30s
-  #      eventServiceIdle: 2m
-  #      channelConfig: 30m
-  #      channelMembership: 30s
-  #      discovery: 10s
-  #      selection: 10m
+    orderer:
+      timeout:
+        connection: 15s
+        response: 15s
+    global:
+      timeout:
+        query: 180s
+        execute: 180s
+        resmgmt: 180s
+      cache:
+        connectionIdle: 30s
+        eventServiceIdle: 2m.
+        channelConfig: 30m
+        channelMembership: 30s
+        discovery: 10s
+        selection: 10m
 
   # Root of the MSP directories with keys and certs.
   cryptoconfig:
-    path: {cryptopath}
+    path: /root/gopath/src/github.com/hyperledger/fabric-samples/basic-network/crypto-config
   # Some SDKs support pluggable KV stores, the properties under "credentialStore"
   # are implementation specific
   credentialStore:
     # [Optional]. Used by user store. Not needed if all credentials are embedded in configuration
-    # and enrollments are performed elswhere.
+    # and enrollments are performed elsewhere.
     path: "/tmp/state-store"
 
     # [Optional]. Specific to the CryptoSuite implementation used by GO SDK. Software-based implementations
     # requiring a key store. PKCS#11 based implementations does not.
     cryptoStore:
       # Specific to the underlying KeyValueStore that backs the crypto key store.
-      path: {cryptopath}/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
-    # BCCSP config for the client. Used by GO SDK.
+      path: /etc/hyperledger/msp
+  # BCCSP config for the client. Used by GO SDK.
   BCCSP:
     security:
       enabled: true
@@ -88,9 +86,9 @@ client:
     # [Optional]. Client key and cert for TLS handshake with peers and orderers
     client:
       key:
-        path:
+        path: /root/gopath/src/github.com/hyperledger/fabric-samples/basic-network/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/client.key
       cert:
-        path:
+        path: /root/gopath/src/github.com/hyperledger/fabric-samples/basic-network/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/client.crt
 
 #
 # [Optional]. But most apps would have this section so that channel objects can be constructed
@@ -128,12 +126,6 @@ channels:
         # [Optional]. will this peer be the target of the SDK's listener registration? All peers can
         # produce events but the app typically only needs to connect to one to listen to events.
         # Default: true
-        eventSource: true
-
-      peer1.org1.example.com:
-        endorsingPeer: true
-        chaincodeQuery: true
-        ledgerQuery: true
         eventSource: true
 
     policies:
@@ -213,18 +205,17 @@ channels:
 organizations:
   Org1:
     mspid: org1.example.com
-    cryptoPath: peerOrganizations/org1.example.com/users/{userName}@org1.example.com/msp
+    cryptoPath: /root/gopath/src/github.com/hyperledger/fabric-samples/basic-network/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
     peers:
       - peer0.org1.example.com
-      - peer1.org1.example.com
 
     # [Optional]. Certificate Authorities issue certificates for identification purposes in a Fabric based
     # network. Typically certificates provisioning is done in a separate process outside of the
     # runtime network. Fabric-CA is a special certificate authority that provides a REST APIs for
     # dynamic certificate management (enroll, revoke, re-enroll). The following section is only for
     # Fabric-CA servers.
-    certificateAuthorities:
-      - ca.org1.example.com
+    #    certificateAuthorities:
+    # - ca.org1.example.com
 
 #
 # List of orderers to send transaction and channel create/update requests to. For the time
@@ -251,7 +242,7 @@ orderers:
 
     tlsCACerts:
       # Certificate location absolute path
-      path: {cryptopath}/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
+      path: /root/gopath/src/github.com/hyperledger/fabric-samples/basic-network/crypto-config/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
 
 #
 # List of peers to send various requests to, including endorsement, query
@@ -262,7 +253,7 @@ peers:
     # this URL is used to send endorsement and query requests
     url: localhost:7051
     # eventUrl is only needed when using eventhub (default is delivery service)
-    eventUrl: localhost:7053
+    # eventUrl: 127.0.0.1:7053
 
     grpcOptions:
       ssl-target-name-override: peer0.org1.example.com
@@ -278,29 +269,7 @@ peers:
 
     tlsCACerts:
       # Certificate location absolute path
-      path: {cryptopath}/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
-
-  peer1.org1.example.com:
-    # this URL is used to send endorsement and query requests
-    url: localhost:8051
-    # eventUrl is only needed when using eventhub (default is delivery service)
-    eventUrl: localhost:8053
-
-    grpcOptions:
-      ssl-target-name-override: peer1.org1.example.com
-      # These parameters should be set in coordination with the keepalive policy on the server,
-      # as incompatible settings can result in closing of connection.
-      # When duration of the 'keep-alive-time' is set to 0 or less the keep alive client parameters are disabled
-      keep-alive-time: 0s
-      keep-alive-timeout: 20s
-      keep-alive-permit: false
-      fail-fast: false
-      # allow-insecure will be taken into consideration if address has no protocol defined, if true then grpc or else grpcs
-      allow-insecure: false
-
-    tlsCACerts:
-      # Certificate location absolute path
-      path: {cryptopath}/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
+      path: /root/gopath/src/github.com/hyperledger/fabric-samples/basic-network/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
 
 #
 # Fabric-CA is a special kind of Certificate Authority provided by Hyperledger Fabric which allows
@@ -312,7 +281,7 @@ certificateAuthorities:
     url: http://localhost:7054
     tlsCACerts:
       # Certificate location absolute path
-      path: {cryptopath}/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
+      path: /etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem
 
     # Fabric-CA supports dynamic user enrollment via REST APIs. A "root" user, a.k.a registrar, is
     # needed to enroll and invoke new users.
@@ -320,7 +289,7 @@ certificateAuthorities:
       enrollId: admin
       enrollSecret: adminpw
     # [Optional] The optional name of the CA.
-    caName: ca.org1.example.com
+    caName:
 
 entityMatchers:
   peer:
@@ -329,12 +298,6 @@ entityMatchers:
       eventUrlSubstitutionExp: localhost:7053
       sslTargetOverrideUrlSubstitutionExp: peer0.org1.example.com
       mappedHost: peer0.org1.example.com
-
-    - pattern: (\w*)peer1.org1.example.com(\w*)
-      urlSubstitutionExp: localhost:8051
-      eventUrlSubstitutionExp: localhost:7153
-      sslTargetOverrideUrlSubstitutionExp: peer1.org1.example.com
-      mappedHost: peer1.org1.example.com
 
   orderer:
     - pattern: (\w*)orderer.example.com(\w*)
