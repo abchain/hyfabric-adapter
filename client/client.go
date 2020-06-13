@@ -3,6 +3,7 @@ package hyfabric
 import (
 	fchannel "github.com/hyperledger/fabric-sdk-go/pkg/client/channel"
 	fledger "github.com/hyperledger/fabric-sdk-go/pkg/client/ledger"
+	"github.com/hyperledger/fabric-sdk-go/pkg/client/msp"
 	"github.com/hyperledger/fabric-sdk-go/pkg/core/config"
 	"github.com/hyperledger/fabric-sdk-go/pkg/fabsdk"
 	"github.com/spf13/viper"
@@ -10,6 +11,8 @@ import (
 	"hyperledger.abchain.org/adapter/hyfabric/client/channel"
 	"hyperledger.abchain.org/adapter/hyfabric/client/ledger"
 )
+
+const userType = "user"
 
 type hyFabricClient struct {
 	chainInfo ChainInfo
@@ -52,8 +55,34 @@ func (c *hyFabricClient) Load(vp *viper.Viper) error {
 	channelId := vp.GetString("channelid")
 	user := vp.GetString("user")
 	org := vp.GetString("org")
-	chC := sdk.ChannelContext(channelId, fabsdk.WithUser(user), fabsdk.WithOrg(org))
 
+	mspClient, err := msp.New(sdk.Context())
+	if err != nil {
+		return err
+	}
+
+	_, err = mspClient.GetSigningIdentity(user)
+	if err == msp.ErrUserNotFound {
+		secret := vp.GetString("secret")
+		caId := vp.GetString("caid")
+		_, err := mspClient.Register(&msp.RegistrationRequest{
+			Name:        user,
+			Type:        userType,
+			Affiliation: org,
+			Secret:      secret,
+			CAName:      caId,
+		})
+		if err != nil {
+			return err
+		}
+
+		err = mspClient.Enroll(user, msp.WithSecret(secret))
+		if err != nil {
+			return err
+		}
+	}
+
+	chC := sdk.ChannelContext(channelId, fabsdk.WithUser(user), fabsdk.WithOrg(org))
 	ledgerCli, err := fledger.New(chC)
 	if err != nil {
 		return err
