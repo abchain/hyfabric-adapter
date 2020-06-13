@@ -56,11 +56,11 @@ func (c *hyFabricClient) Load(vp *viper.Viper) error {
 	user := vp.GetString("user")
 	org := vp.GetString("org")
 
+	// get user, if user is not exist, register and enroll.
 	mspClient, err := msp.New(sdk.Context())
 	if err != nil {
 		return err
 	}
-
 	_, err = mspClient.GetSigningIdentity(user)
 	if err == msp.ErrUserNotFound {
 		secret := vp.GetString("secret")
@@ -83,11 +83,13 @@ func (c *hyFabricClient) Load(vp *viper.Viper) error {
 	}
 
 	chC := sdk.ChannelContext(channelId, fabsdk.WithUser(user), fabsdk.WithOrg(org))
+	// get fabric ledger client
 	ledgerCli, err := fledger.New(chC)
 	if err != nil {
 		return err
 	}
 
+	// get fabric channel client
 	channelCli, err := fchannel.New(chC)
 	if err != nil {
 		return err
@@ -100,9 +102,9 @@ func (c *hyFabricClient) Load(vp *viper.Viper) error {
 	return nil
 }
 
-//Caller Assign each http request (run cocurrency) a client, which can be adapted to a caller
-//the client is "lazy" connect: it just do connect when required (a request has come)
-//and wait for connect finish
+// Caller Assign each http request (run cocurrency) a client, which can be adapted to a caller
+// the client is "lazy" connect: it just do connect when required (a request has come)
+// and wait for connect finish
 func (c *hyFabricClient) Caller(spec *channel.RpcSpec) (Caller, error) {
 	return c.caller, nil
 }
