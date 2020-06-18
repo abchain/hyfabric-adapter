@@ -2,47 +2,46 @@ package ledger
 
 import (
 	"fmt"
-	"time"
-
 	"github.com/hyperledger/fabric-protos-go/common"
 	"github.com/hyperledger/fabric-protos-go/peer"
 	"github.com/hyperledger/fabric-sdk-go/pkg/client/ledger"
 	"github.com/hyperledger/fabric-sdk-go/pkg/common/providers/fab"
 	"github.com/sirupsen/logrus"
+	"hyperledger.abchain.org/client"
 
 	"hyperledger.abchain.org/adapter/hyfabric/client/ledger/utils"
 )
 
 var log = logrus.New()
 
-type Client struct {
+type faClient struct {
 	*ledger.Client
 }
 
-func NewLedgerClient(cli *ledger.Client) *Client {
-	return &Client{cli}
+func NewLedgerClient(cli *ledger.Client) *faClient {
+	return &faClient{cli}
 }
 
 //
-func (c *Client) GetChain() (*Chain, error) {
+func (c *faClient) GetChain() (*client.Chain, error) {
 	info, err := c.QueryInfo()
 	if err != nil {
 		return nil, err
 	}
 
-	return &Chain{Height: int64(info.BCI.Height)}, nil
+	return &client.Chain{Height: int64(info.BCI.Height)}, nil
 }
 
-func (c *Client) GetBlock(height int64) (*ChainBlock, error) {
+func (c *faClient) GetBlock(height int64) (*client.ChainBlock, error) {
 	block, err := c.QueryBlock(uint64(height))
 	if err != nil {
 		return nil, err
 	}
 
-	cBlock := &ChainBlock{
+	cBlock := &client.ChainBlock{
 		Height:       height,
-		Hash:         string(block.GetHeader().GetDataHash()),
-		PreviousHash: string(block.GetHeader().GetPreviousHash()),
+		Hash:         fmt.Sprintf("%.32X", block.GetHeader().GetDataHash()),
+		PreviousHash: fmt.Sprintf("%.32X", block.GetHeader().GetPreviousHash()),
 	}
 
 	for _, data := range block.GetData().GetData() {
@@ -67,7 +66,7 @@ func (c *Client) GetBlock(height int64) (*ChainBlock, error) {
 	return cBlock, nil
 }
 
-func (c *Client) GetTransaction(txid string) (*ChainTransaction, error) {
+func (c *faClient) GetTransaction(txid string) (*client.ChainTransaction, error) {
 	transactionId := fab.TransactionID(txid)
 	txPro, err := c.QueryTransaction(transactionId)
 	if err != nil {
@@ -82,50 +81,17 @@ func (c *Client) GetTransaction(txid string) (*ChainTransaction, error) {
 	return envelopeToTrasaction(int64(block.GetHeader().GetNumber()), (*common.Envelope)(txPro.TransactionEnvelope))
 }
 
-func (c *Client) GetTxEvent(txid string) ([]*ChainTxEvents, error) {
+func (c *faClient) GetTxEvent(txid string) ([]*client.ChainTxEvents, error) {
 	transactionId := fab.TransactionID(txid)
 	txPro, err := c.QueryTransaction(transactionId)
 	if err != nil {
 		return nil, err
 	}
 	env, err := envelopeToTxEvents((*common.Envelope)(txPro.TransactionEnvelope))
-	return []*ChainTxEvents{env}, err
+	return []*client.ChainTxEvents{env}, err
 }
 
-type Chain struct {
-	// may be uint is better
-	Height int64
-}
-
-type ChainBlock struct {
-	Height       int64  `json:",string"`
-	Hash         string `json:",omitempty"`
-	PreviousHash string
-	TimeStamp    time.Time           `json:",omitempty"`
-	Transactions []*ChainTransaction `json:"-"`
-	TxEvents     []*ChainTxEvents    `json:"-"`
-}
-
-type ChainTransaction struct {
-	Height                  int64 `json:",string"`
-	TxID, Chaincode, Method string
-	CreatedFlag             bool
-	TxArgs                  [][]byte `json:"-"`
-}
-
-type ChainTxEvents struct {
-	TxID, Chaincode, Name string
-	Status                int
-	Payload               []byte `json:"-"`
-}
-
-type Caller interface {
-	Deploy(method string, arg [][]byte) (string, error)
-	Invoke(method string, arg [][]byte) (string, error)
-	Query(method string, arg [][]byte) ([]byte, error)
-}
-
-func envelopeToTrasaction(height int64, env *common.Envelope) (*ChainTransaction, error) {
+func envelopeToTrasaction(height int64, env *common.Envelope) (*client.ChainTransaction, error) {
 	ccActionPayload, txId, isEndorserTransaction, err := getChainCodeActionPayloadFromEnvelope(env)
 	if err != nil {
 		return nil, fmt.Errorf("invalid chaincode action in payload for tx %v : %v", txId, err)
@@ -140,7 +106,7 @@ func envelopeToTrasaction(height int64, env *common.Envelope) (*ChainTransaction
 	if err != nil {
 		return nil, fmt.Errorf("get chaincode invocation spec error: %v", err)
 	}
-	return &ChainTransaction{
+	return &client.ChainTransaction{
 		Height:      height,
 		TxID:        txId,
 		Chaincode:   spec.GetChaincodeSpec().GetChaincodeId().GetName(),
@@ -150,7 +116,7 @@ func envelopeToTrasaction(height int64, env *common.Envelope) (*ChainTransaction
 	}, nil
 }
 
-func envelopeToTxEvents(env *common.Envelope) (*ChainTxEvents, error) {
+func envelopeToTxEvents(env *common.Envelope) (*client.ChainTxEvents, error) {
 	ccActionPayload, txId, isEndorserTransaction, err := getChainCodeActionPayloadFromEnvelope(env)
 	if err != nil {
 		return nil, fmt.Errorf("invalid chaincode action in payload for tx %v : %v", txId, err)
@@ -170,7 +136,7 @@ func envelopeToTxEvents(env *common.Envelope) (*ChainTxEvents, error) {
 	}
 	ccEvent, err := utils.GetChaincodeEvents(caPayload.GetEvents())
 	if ccEvent != nil {
-		return &ChainTxEvents{
+		return &client.ChainTxEvents{
 			TxID:      txId,
 			Chaincode: ccEvent.GetChaincodeId(),
 			Name:      ccEvent.GetEventName(),
@@ -210,7 +176,7 @@ func getChainCodeActionPayloadFromEnvelope(env *common.Envelope) (*peer.Chaincod
 	}
 
 	if ccActionPayload.Action == nil {
-		return nil, txId, isEndorserTransaction, fmt.Errorf("action in ChaincodeActionPayload for %v is nil", chdr.TxId, )
+		return nil, txId, isEndorserTransaction, fmt.Errorf("action in ChaincodeActionPayload for %v is nil", chdr.TxId)
 	}
 	return ccActionPayload, txId, isEndorserTransaction, nil
 }

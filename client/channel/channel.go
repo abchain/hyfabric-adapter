@@ -2,22 +2,8 @@ package channel
 
 import (
 	"fmt"
-	
+
 	"github.com/hyperledger/fabric-sdk-go/pkg/client/channel"
-	"github.com/spf13/viper"
-)
-
-type RpcSpec struct {
-	//notice chaincode name is different to the ccname in txgenerator, the later
-	//is used in the hyperledger-project compatible tx
-	ChaincodeName string
-	Attributes    []string
-	Options       *viper.Viper
-}
-
-const (
-	invokeFunc = "invoke"
-	queryFunc  = "query"
 )
 
 type Client struct {
@@ -36,8 +22,8 @@ func NewChannelClient(ccName string, cli *channel.Client) *Client {
 func (c *Client) Query(method string, arg [][]byte) ([]byte, error) {
 	resp, err := c.chClient.Query(channel.Request{
 		ChaincodeID: c.chainCodeId,
-		Fcn:         invokeFunc,
-		Args:        append([][]byte{[]byte(queryFunc)}, append([][]byte{[]byte(method)}, arg...)...),
+		Fcn:         method,
+		Args:        arg,
 		//TransientMap:    nil,
 		//InvocationChain: nil,
 	})
@@ -52,8 +38,8 @@ func (c *Client) Query(method string, arg [][]byte) ([]byte, error) {
 func (c *Client) Invoke(method string, arg [][]byte) (string, error) {
 	resp, err := c.chClient.Execute(channel.Request{
 		ChaincodeID: c.chainCodeId,
-		Fcn:         invokeFunc,
-		Args:        append([][]byte{[]byte(method)}, arg...),
+		Fcn:         method,
+		Args:        arg,
 		//TransientMap:    nil,
 		//InvocationChain: nil,
 	})
