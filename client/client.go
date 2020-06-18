@@ -1,4 +1,4 @@
-package hyfabric
+package client
 
 import (
 	fchannel "github.com/hyperledger/fabric-sdk-go/pkg/client/channel"
@@ -10,37 +10,26 @@ import (
 
 	"hyperledger.abchain.org/adapter/hyfabric/client/channel"
 	"hyperledger.abchain.org/adapter/hyfabric/client/ledger"
+	"hyperledger.abchain.org/chaincode/lib/caller"
+	"hyperledger.abchain.org/client"
 )
+
+func init() {
+	if client.Client_Impls == nil {
+		client.Client_Impls = make(map[string]func() client.RpcClient)
+	}
+	client.Client_Impls["hyfabric"] = NewRPCConfig
+}
 
 const userType = "user"
 
 type hyFabricClient struct {
-	chainInfo ChainInfo
-	caller    Caller
+	chainInfo client.ChainInfo
+	caller    rpc.Caller
 	sdk       *fabsdk.FabricSDK
 }
 
-type RpcClient interface {
-	Chain() (ChainInfo, error)
-	Caller(*channel.RpcSpec) (Caller, error)
-	Load(*viper.Viper) error
-	Quit()
-}
-
-type ChainInfo interface {
-	GetChain() (*ledger.Chain, error)
-	GetBlock(int64) (*ledger.ChainBlock, error)
-	GetTransaction(string) (*ledger.ChainTransaction, error)
-	GetTxEvent(string) ([]*ledger.ChainTxEvents, error)
-}
-
-type Caller interface {
-	Deploy(method string, arg [][]byte) (string, error)
-	Invoke(method string, arg [][]byte) (string, error)
-	Query(method string, arg [][]byte) ([]byte, error)
-}
-
-func NewRPCConfig() *hyFabricClient {
+func NewRPCConfig() client.RpcClient {
 	return &hyFabricClient{}
 }
 
@@ -105,11 +94,11 @@ func (c *hyFabricClient) Load(vp *viper.Viper) error {
 // Caller Assign each http request (run cocurrency) a client, which can be adapted to a caller
 // the client is "lazy" connect: it just do connect when required (a request has come)
 // and wait for connect finish
-func (c *hyFabricClient) Caller(spec *channel.RpcSpec) (Caller, error) {
+func (c *hyFabricClient) Caller(spec *client.RpcSpec) (rpc.Caller, error) {
 	return c.caller, nil
 }
 
-func (c *hyFabricClient) Chain() (ChainInfo, error) {
+func (c *hyFabricClient) Chain() (client.ChainInfo, error) {
 	return c.chainInfo, nil
 }
 
