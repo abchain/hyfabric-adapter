@@ -16,5 +16,5 @@ require (
 	github.com/sykesm/zap-logfmt v0.0.3 // indirect
 	go.uber.org/zap v1.15.0 // indirect
 	golang.org/x/net v0.0.0-20200602114024-627f9648deb9 // indirect
-	hyperledger.abchain.org v0.2.0
+	hyperledger.abchain.org v0.2.1
 )
