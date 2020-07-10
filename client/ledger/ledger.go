@@ -12,6 +12,8 @@ import (
 	"hyperledger.abchain.org/adapter/hyfabric/client/ledger/utils"
 )
 
+const BlockMetadataIndex_TRANSACTIONS_FILTER int32 = 2
+
 var log = logrus.New()
 
 type faClient struct {
@@ -22,7 +24,6 @@ func NewLedgerClient(cli *ledger.Client) *faClient {
 	return &faClient{cli}
 }
 
-//
 func (c *faClient) GetChain() (*client.Chain, error) {
 	info, err := c.QueryInfo()
 	if err != nil {
@@ -44,24 +45,30 @@ func (c *faClient) GetBlock(height int64) (*client.ChainBlock, error) {
 		PreviousHash: fmt.Sprintf("%.32X", block.GetHeader().GetPreviousHash()),
 	}
 
-	for _, data := range block.GetData().GetData() {
+	transFilter := block.GetMetadata().GetMetadata()[BlockMetadataIndex_TRANSACTIONS_FILTER]
+	for i, data := range block.GetData().GetData() {
 		envelope, err := utils.GetEnvelopeFromData(data)
 		if err != nil {
 			log.Warnf("reconstructing envelope error: (%s)", err)
 			continue
 		}
 
-		transaction, err := envelopeToTrasaction(height, envelope)
-		if err != nil {
-			log.Warnf("error get transaction from envelope error: (%s)", err)
-			continue
+		// only the valid transaction will be recorded in the block transactions.
+		if peer.TxValidationCode(transFilter[i]) == peer.TxValidationCode_VALID {
+			transaction, err := envelopeToTransaction(height, envelope)
+			if err != nil {
+				log.Warnf("error get transaction from envelope error: (%s)", err)
+				continue
+			}
+			cBlock.Transactions = append(cBlock.Transactions, transaction)
 		}
-		cBlock.Transactions = append(cBlock.Transactions, transaction)
+
 		txEvent, err := envelopeToTxEvents(envelope)
 		if err != nil {
 			log.Warnf("get transaction from envelope error: (%s)", err)
 			continue
 		}
+		txEvent.Status = int(transFilter[i])
 		cBlock.TxEvents = append(cBlock.TxEvents, txEvent)
 	}
 	return cBlock, nil
@@ -79,20 +86,22 @@ func (c *faClient) GetTransaction(txid string) (*client.ChainTransaction, error)
 		return nil, err
 	}
 
-	return envelopeToTrasaction(int64(block.GetHeader().GetNumber()), txPro.TransactionEnvelope)
+	return envelopeToTransaction(int64(block.GetHeader().GetNumber()), txPro.TransactionEnvelope)
 }
 
+// Note! GetTxEvent cannot get the status of tx. this may be added in later versions.
+// todo(mh): add tx status?.
 func (c *faClient) GetTxEvent(txid string) ([]*client.ChainTxEvents, error) {
 	transactionId := fab.TransactionID(txid)
 	txPro, err := c.QueryTransaction(transactionId)
 	if err != nil {
 		return nil, err
 	}
-	env, err := envelopeToTxEvents((*common.Envelope)(txPro.TransactionEnvelope))
+	env, err := envelopeToTxEvents(txPro.TransactionEnvelope)
 	return []*client.ChainTxEvents{env}, err
 }
 
-func envelopeToTrasaction(height int64, env *common.Envelope) (*client.ChainTransaction, error) {
+func envelopeToTransaction(height int64, env *common.Envelope) (*client.ChainTransaction, error) {
 	ccActionPayload, txId, isEndorserTransaction, err := getChainCodeActionPayloadFromEnvelope(env)
 	if err != nil {
 		return nil, fmt.Errorf("invalid chaincode action in payload for tx %v : %v", txId, err)
