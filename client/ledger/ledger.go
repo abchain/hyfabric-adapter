@@ -52,16 +52,17 @@ func (c *faClient) GetBlock(height int64) (*client.ChainBlock, error) {
 		}
 
 		transaction, err := envelopeToTrasaction(height, envelope)
-		if err == nil {
+		if err != nil {
 			log.Warnf("error get transaction from envelope error: (%s)", err)
-			cBlock.Transactions = append(cBlock.Transactions, transaction)
+			continue
 		}
-
+		cBlock.Transactions = append(cBlock.Transactions, transaction)
 		txEvent, err := envelopeToTxEvents(envelope)
-		if err == nil {
+		if err != nil {
 			log.Warnf("get transaction from envelope error: (%s)", err)
-			cBlock.TxEvents = append(cBlock.TxEvents, txEvent)
+			continue
 		}
+		cBlock.TxEvents = append(cBlock.TxEvents, txEvent)
 	}
 	return cBlock, nil
 }
@@ -78,7 +79,7 @@ func (c *faClient) GetTransaction(txid string) (*client.ChainTransaction, error)
 		return nil, err
 	}
 
-	return envelopeToTrasaction(int64(block.GetHeader().GetNumber()), (*common.Envelope)(txPro.TransactionEnvelope))
+	return envelopeToTrasaction(int64(block.GetHeader().GetNumber()), txPro.TransactionEnvelope)
 }
 
 func (c *faClient) GetTxEvent(txid string) ([]*client.ChainTxEvents, error) {
@@ -97,15 +98,16 @@ func envelopeToTrasaction(height int64, env *common.Envelope) (*client.ChainTran
 		return nil, fmt.Errorf("invalid chaincode action in payload for tx %v : %v", txId, err)
 	}
 
-	pro, err := utils.GetProposal(ccActionPayload.GetChaincodeProposalPayload())
-	if err != nil {
-		return nil, fmt.Errorf("get proposal error: %v", err)
+	// todo(MH): currently only concerned about endorser transaction.
+	if !isEndorserTransaction {
+		return nil, fmt.Errorf("unfollowed transacction type")
 	}
 
-	spec, err := utils.GetChaincodeInvocationSpec(pro)
+	spec, err := utils.GetChaincodeInvocationSpec(ccActionPayload.GetChaincodeProposalPayload())
 	if err != nil {
 		return nil, fmt.Errorf("get chaincode invocation spec error: %v", err)
 	}
+
 	return &client.ChainTransaction{
 		Height:      height,
 		TxID:        txId,
@@ -163,6 +165,7 @@ func getChainCodeActionPayloadFromEnvelope(env *common.Envelope) (*peer.Chaincod
 	txId = chdr.GetTxId()
 	if chdr.Type != int32(common.HeaderType_ENDORSER_TRANSACTION) {
 		isEndorserTransaction = false
+		return nil, txId, isEndorserTransaction, nil
 	}
 
 	tx, err := utils.GetTransaction(payload.GetData())

@@ -2,7 +2,6 @@ package utils
 
 import (
 	"fmt"
-
 	"github.com/golang/protobuf/proto"
 	"github.com/hyperledger/fabric-protos-go/common"
 	"github.com/hyperledger/fabric-protos-go/peer"
@@ -14,7 +13,7 @@ func GetEnvelopeFromData(data []byte) (*common.Envelope, error) {
 	// Block always begins with an envelope
 	env := &common.Envelope{}
 	err := proto.Unmarshal(data, env)
-	return nil, errors.Wrapf(err, "error unmarshaling envelope")
+	return env, errors.Wrapf(err, "error unmarshaling envelope")
 }
 
 // GetProposal returns a Proposal message from its bytes
@@ -25,15 +24,12 @@ func GetProposal(propBytes []byte) (*peer.Proposal, error) {
 }
 
 // GetChaincodeInvocationSpec get the ChaincodeInvocationSpec from the proposal
-func GetChaincodeInvocationSpec(prop *peer.Proposal) (*peer.ChaincodeInvocationSpec, error) {
+func GetChaincodeInvocationSpec(prop []byte) (*peer.ChaincodeInvocationSpec, error) {
 	if prop == nil {
 		return nil, fmt.Errorf("proposal is nil")
 	}
-	_, err := GetHeader(prop.Header)
-	if err != nil {
-		return nil, err
-	}
-	ccPropPayload, err := GetChaincodeProposalPayload(prop.Payload)
+
+	ccPropPayload, err := GetChaincodeProposalPayload(prop)
 	if err != nil {
 		return nil, err
 	}

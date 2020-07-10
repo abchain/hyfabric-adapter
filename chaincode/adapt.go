@@ -41,8 +41,11 @@ type adaptChainCodeStub struct {
 }
 
 func (s *adaptChainCodeStub) GetTxTime() (time.Time, error) {
-	// todo(mh):  convert timestamp.Timestamp to time.Time
-	return time.Time{}, nil
+	tmp, err := s.GetTxTimestamp()
+	if err != nil {
+		return time.Time{}, err
+	}
+	return time.Unix(tmp.Seconds, int64(tmp.Nanos)), nil
 }
 
 func (s *adaptChainCodeStub) RangeQueryState(startKey, endKey string) (yashim.StateRangeQueryIteratorInterface, error) {

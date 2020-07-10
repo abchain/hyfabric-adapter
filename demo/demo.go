@@ -163,11 +163,17 @@ func main() {
 		panic(err)
 	}
 	fmt.Printf("Query Chain Info Success, Chain Height: %d\n", chain.Height)
-	block, err := ledgerCli.GetBlock(2)
-	if err != nil {
-		panic(err)
+
+	for i := 0; i < int(chain.Height); i++ {
+		block, err := ledgerCli.GetBlock(int64(i))
+		if err != nil {
+			panic(err)
+		}
+		fmt.Printf("Query Block Success, Block Heiht: %d, Block Hash: %s, Block: %v\n", block.Height, block.Hash, block)
+		if len(block.TxEvents) > 0 {
+			fmt.Println(block.TxEvents[0].Status)
+		}
 	}
-	fmt.Printf("Query Block Success, Block Heiht: %d, Block Hash: %s\n", block.Height, block.Hash)
 
 	//err = InstallAndInstantiateCC(faClient, fSetup)
 	//if err != nil {
