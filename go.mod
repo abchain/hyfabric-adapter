@@ -4,6 +4,7 @@ go 1.12
 
 require (
 	github.com/fsouza/go-dockerclient v1.6.5 // indirect
+	github.com/gogo/protobuf v1.3.1
 	github.com/golang/protobuf v1.3.2
 	github.com/hyperledger/fabric-amcl v0.0.0-20200424173818-327c9e2cf77a // indirect
 	github.com/hyperledger/fabric-chaincode-go v0.0.0-20200511190512-bcfeb58dd83a

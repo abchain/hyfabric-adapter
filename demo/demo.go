@@ -170,9 +170,6 @@ func main() {
 			panic(err)
 		}
 		fmt.Printf("Query Block Success, Block Heiht: %d, Block Hash: %s, Block: %v\n", block.Height, block.Hash, block)
-		if len(block.TxEvents) > 0 {
-			fmt.Println(block.TxEvents[0].Status)
-		}
 	}
 
 	//err = InstallAndInstantiateCC(faClient, fSetup)

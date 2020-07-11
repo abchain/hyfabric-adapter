@@ -303,4 +303,6 @@ honnef.co/go/tools v0.0.0-20190523083050-ea95bdfd59fc/go.mod h1:rf3lG4BRIbNafJWh
 honnef.co/go/tools v0.0.1-2019.2.3/go.mod h1:a3bituU0lyd329TUQxRnasdCoJDkEUEAqEt0JzvZhAg=
 hyperledger.abchain.org v0.2.0 h1:77JjBN4a2Vr72guMfXettPzlPcxleNZ8OKKitbzQd6A=
 hyperledger.abchain.org v0.2.0/go.mod h1:gFlKbJX+ZvMM3wSY8tW/MChynNIXmwCII2vxcjzinCw=
+hyperledger.abchain.org/adapter/hyfabric v0.1.0 h1:gnGjN1j3oaHZebqGwSZDJOY5qRRNJRRZ1to4QTno4oI=
+hyperledger.abchain.org/adapter/hyfabric v0.1.0/go.mod h1:kpSy/hDMrCo5iuIumvc/xnQQ0mCgFAAIYN/9YNsYnZ8=
 k8s.io/kubernetes v1.13.0/go.mod h1:ocZa8+6APFNC2tX1DZASIbocyYT5jHzqFVsY5aoB7Jk=

@@ -2,11 +2,14 @@ package ledger
 
 import (
 	"fmt"
+	"github.com/gogo/protobuf/proto"
 	"github.com/hyperledger/fabric-protos-go/common"
 	"github.com/hyperledger/fabric-protos-go/peer"
 	"github.com/hyperledger/fabric-sdk-go/pkg/client/ledger"
 	"github.com/hyperledger/fabric-sdk-go/pkg/common/providers/fab"
 	"github.com/sirupsen/logrus"
+	"hyperledger.abchain.org/adapter/hyfabric/chaincode"
+	"hyperledger.abchain.org/adapter/hyfabric/rlp"
 	"hyperledger.abchain.org/client"
 
 	"hyperledger.abchain.org/adapter/hyfabric/client/ledger/utils"
@@ -63,13 +66,12 @@ func (c *faClient) GetBlock(height int64) (*client.ChainBlock, error) {
 			cBlock.Transactions = append(cBlock.Transactions, transaction)
 		}
 
-		txEvent, err := envelopeToTxEvents(envelope)
+		txEvent, err := envelopeToTxEvents(envelope, int(transFilter[i]))
 		if err != nil {
 			log.Warnf("get transaction from envelope error: (%s)", err)
 			continue
 		}
-		txEvent.Status = int(transFilter[i])
-		cBlock.TxEvents = append(cBlock.TxEvents, txEvent)
+		cBlock.TxEvents = append(cBlock.TxEvents, txEvent...)
 	}
 	return cBlock, nil
 }
@@ -97,8 +99,7 @@ func (c *faClient) GetTxEvent(txid string) ([]*client.ChainTxEvents, error) {
 	if err != nil {
 		return nil, err
 	}
-	env, err := envelopeToTxEvents(txPro.TransactionEnvelope)
-	return []*client.ChainTxEvents{env}, err
+	return envelopeToTxEvents(txPro.TransactionEnvelope, 0)
 }
 
 func envelopeToTransaction(height int64, env *common.Envelope) (*client.ChainTransaction, error) {
@@ -127,7 +128,7 @@ func envelopeToTransaction(height int64, env *common.Envelope) (*client.ChainTra
 	}, nil
 }
 
-func envelopeToTxEvents(env *common.Envelope) (*client.ChainTxEvents, error) {
+func envelopeToTxEvents(env *common.Envelope, status int) ([]*client.ChainTxEvents, error) {
 	ccActionPayload, txId, isEndorserTransaction, err := getChainCodeActionPayloadFromEnvelope(env)
 	if err != nil {
 		return nil, fmt.Errorf("invalid chaincode action in payload for tx %v : %v", txId, err)
@@ -146,16 +147,43 @@ func envelopeToTxEvents(env *common.Envelope) (*client.ChainTxEvents, error) {
 		return nil, fmt.Errorf("error unmarshalling chaincode action for block event: %s", err)
 	}
 	ccEvent, err := utils.GetChaincodeEvents(caPayload.GetEvents())
-	if ccEvent != nil {
-		return &client.ChainTxEvents{
+	if ccEvent == nil {
+		return nil, fmt.Errorf("chaincode event is nil, err: %v", err)
+	}
+
+	var chainTxEvents []*client.ChainTxEvents
+
+	if ccEvent.GetEventName() == chaincode.MultipleEvents {
+		var payload [][]byte
+		err = rlp.DecodeBytes(ccEvent.GetPayload(), &payload)
+		if err != nil {
+			return nil, fmt.Errorf("decode chaincode events err: %v", err)
+		}
+
+		for _, data := range payload {
+			var event peer.ChaincodeEvent
+			err := proto.Unmarshal(data, &event)
+			if err != nil {
+				return nil, fmt.Errorf("decode chaincode events err: %v", err)
+			}
+			chainTxEvents = append(chainTxEvents, &client.ChainTxEvents{
+				TxID:      txId,
+				Chaincode: event.GetChaincodeId(),
+				Name:      event.GetEventName(),
+				Status:    status,
+				Payload:   event.GetPayload(),
+			})
+		}
+	} else {
+		chainTxEvents = append(chainTxEvents, &client.ChainTxEvents{
 			TxID:      txId,
 			Chaincode: ccEvent.GetChaincodeId(),
 			Name:      ccEvent.GetEventName(),
-			// todo(mh): define status
-			Payload: ccEvent.GetPayload(),
-		}, nil
+			Status:    status,
+			Payload:   ccEvent.GetPayload(),
+		})
 	}
-	return nil, fmt.Errorf("chaincode event is nil, err: %v", err)
+	return chainTxEvents, nil
 }
 
 func getChainCodeActionPayloadFromEnvelope(env *common.Envelope) (*peer.ChaincodeActionPayload, string, bool, error) {

@@ -1,12 +1,15 @@
 package chaincode
 
 import (
-	"time"
-
+	"github.com/gogo/protobuf/proto"
 	fashim "github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-protos-go/peer"
+	"hyperledger.abchain.org/adapter/hyfabric/rlp"
 	yashim "hyperledger.abchain.org/chaincode/shim"
+	"time"
 )
+
+const MultipleEvents = "multiple_events"
 
 type faChainCode struct {
 	yaCc yashim.Chaincode
@@ -28,7 +31,7 @@ func (f *faChainCode) Invoke(stub fashim.ChaincodeStubInterface) peer.Response {
 		function = string(args[0])
 		args = args[1:]
 	}
-	res, err := f.yaCc.Invoke(&adaptChainCodeStub{stub}, function, args, false)
+	res, err := f.yaCc.Invoke(&adaptChainCodeStub{ChaincodeStubInterface: stub}, function, args, false)
 	if err != nil {
 		return fashim.Error(err.Error())
 	}
@@ -38,6 +41,7 @@ func (f *faChainCode) Invoke(stub fashim.ChaincodeStubInterface) peer.Response {
 // helper
 type adaptChainCodeStub struct {
 	fashim.ChaincodeStubInterface
+	chaincodeEvents [][]byte
 }
 
 func (s *adaptChainCodeStub) GetTxTime() (time.Time, error) {
@@ -46,6 +50,26 @@ func (s *adaptChainCodeStub) GetTxTime() (time.Time, error) {
 		return time.Time{}, err
 	}
 	return time.Unix(tmp.Seconds, int64(tmp.Nanos)), nil
+}
+
+func (s *adaptChainCodeStub) SetEvent(name string, payload []byte) error {
+	var err error
+	event := &peer.ChaincodeEvent{EventName: name, Payload: payload}
+	data, err := proto.Marshal(event)
+	if err != nil {
+		return err
+	}
+	s.chaincodeEvents = append(s.chaincodeEvents, data)
+	if len(s.chaincodeEvents) == 1 {
+		err = s.ChaincodeStubInterface.SetEvent(name, payload)
+	} else {
+		datas, err := rlp.EncodeToBytes(s.chaincodeEvents)
+		if err != nil {
+			return err
+		}
+		err = s.ChaincodeStubInterface.SetEvent(MultipleEvents, datas)
+	}
+	return err
 }
 
 func (s *adaptChainCodeStub) RangeQueryState(startKey, endKey string) (yashim.StateRangeQueryIteratorInterface, error) {
