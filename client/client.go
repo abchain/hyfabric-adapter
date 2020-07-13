@@ -12,8 +12,6 @@ import (
 	"hyperledger.abchain.org/adapter/hyfabric/client/ledger"
 	"hyperledger.abchain.org/chaincode/lib/caller"
 	"hyperledger.abchain.org/client"
-
-	"strings"
 )
 
 func init() {
@@ -58,21 +56,6 @@ func (c *hyFabricClient) Load(vp *viper.Viper) error {
 	_, err = mspClient.GetSigningIdentity(user)
 	if err == msp.ErrUserNotFound {
 		secret := vp.GetString("secret")
-		caId := vp.GetString("caid")
-		_, err := mspClient.Register(&msp.RegistrationRequest{
-			Name:        user,
-			Type:        userType,
-			Affiliation: org,
-			Secret:      secret,
-			CAName:      caId,
-		})
-
-		if err != nil {
-			if !strings.Contains(err.Error(), registered) {
-				return err
-			}
-		}
-
 		err = mspClient.Enroll(user, msp.WithSecret(secret))
 		if err != nil {
 			return err
