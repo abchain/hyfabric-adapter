@@ -8,51 +8,17 @@ client:
   logging:
     level: info
 
-  # Root of the MSP directories with keys and certs.
-  cryptoconfig:
-    path: /Users/ymh/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config
-
-  credentialStore:
-    path: /tmp/state-store/cert
-    cryptoStore:
-      path: /tmp/state-store/msp
-
-  # BCCSP config for the client. Used by GO SDK.
-  BCCSP:
-    security:
-      enabled: true
-      # SW/GM SHA2/GMSM3
-      default:
-        provider: "SW"
-      hashAlgorithm: "SHA2"
-      softVerify: true
-      level: 256
-
-  # Global configuration for peer, event service and orderer timeouts
-  peer:
-    timeout:
-      connection: 10s
-      queryResponse: 45s
-      executeTxResponse: 30s
-  eventService:
-    timeout:
-      connection: 50s
-      registrationResponse: 50s
-  orderer:
-    timeout:
-      connection: 5s
-      response: 45s
-
-#
-# [Optional]. But most apps would have this section so that channel objects can be constructed
 # based on the content below. If an app is creating channels, then it likely will not need this
 # section.
 #
 channels:
   mychannel:
     peers:
-      peer0.org1.example.com:
-      peer1.org1.example.com:
+      peer1-org1:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
 
 #
 # list of participating organizations in this network
@@ -60,71 +26,32 @@ channels:
 organizations:
   Org1:
     mspid: Org1MSP
-    cryptoPath: /Users/ymh/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp
+    cryptoPath: /Users/ymh/fkfabric/Org1/client/msp
     peers:
-      - peer0.org1.example.com
-      - peer1.org1.example.com
+      - peer1-org1
     certificateAuthorities:
-      - ca.org1.example.com
+      - fabric-ca.stringon.com
 
-#
-# List of orderers to send transaction and channel create/update requests to. For the time
-# being only one orderer is needed. If more than one is defined, which one get used by the
-# SDK is implementation specific. Consult each SDK's documentation for its handling of orderers.
-#
-orderers:
-  orderer.example.com:
-    url: grpcs://127.0.0.1:7050
-    grpcOptions:
-      ssl-target-name-override: orderer.example.com
-      hostnameOverride: orderer.example.com
-    tlsCACerts:
-      path: /Users/ymh/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
 
-#
-# List of peers to send various requests to, including endorsement, query
-# and event listener registration.
-#
 peers:
-  peer0.org1.example.com:
-    url: grpcs://127.0.0.1:7051
+  peer1-org1:
+    url: grpcs://peer1-org1:7051
     grpcOptions:
-      ssl-target-name-override: peer0.org1.example.com
-      hostnameOverride: peer0.org1.example.com
+      ssl-target-name-override: peer1-org1
+      hostnameOverride: peer1-org1
     tlsCACerts:
-      path: /Users/ymh/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/ca.crt
-
-  peer1.org1.example.com:
-    url: grpcs://127.0.0.1:8051
-    grpcOptions:
-      ssl-target-name-override: peer1.org1.example.com
-      hostnameOverride: peer1.org1.example.com
-    tlsCACerts:
-      path: /Users/ymh/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/ca.crt
-
+      path: /Users/ymh/fkfabric/Org1/peer1/tlscacerts/tls-fabric-ca-stringon-com-7054.pem
 #
 # Fabric-CA is a special kind of Certificate Authority provided by Hyperledger Fabric which allows
 # certificate management to be done via REST APIs. Application may choose to use a standard
 # Certificate Authority instead of Fabric-CA, in which case this section would not be specified.
 #
 certificateAuthorities:
-  ca.org1.example.com:
-    url: https://ca.org1.example.com:7054
-    caName: ca-org1
+  fabric-ca.stringon.com:
+    url: https://fabric-ca.stringon.com:7054
+    caName:
     tlsCACerts:
-      path: /Users/ymh/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
-      client:
-        key:
-          path: /Users/ymh/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/client.key
-        cert:
-          path: /Users/ymh/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/client.crt
+      path: /Users/ymh/fkfabric/tls-cert.pem
     registrar:
-      enrollId: admin
-      enrollSecret: adminpw
-
-entityMatchers:
-  orderer:
-    - pattern: (\w+).example.(\w+)
-      urlSubstitutionExp: grpcs://127.0.0.1:7050
-      sslTargetOverrideUrlSubstitutionExp: orderer.example.com
-      mappedHost: orderer.example.com
+      enrollId: org1-admin
+      enrollSecret: password

@@ -2,25 +2,7 @@
 
 ### 1.0 fabric 1.4 网络启动
 
-#### 1.1 通过项目 [deploy-fabric](https://dev.stringon.com/yinminghao/deployfabirc) 启动网络
-
-#### 1.2 使用 fabric-sample 启动网络
-
-1. 获取 fabric-sample 项目release-1.4版本
-    ```shell
-    $ git clone https://github.com/hyperledger/fabric-samples.git
-    $ git checkout  v1.4.7
-    ```
-2.  启动 fabric 1.4 网络
-    ```shell
-    $ cd first-network 
-    ## 清理之前环境
-    $ ./byfn.sh -m down 
-    ## 生成启动所需文件
-    $ ./byfn.sh generate
-    ## 启动网络, 1.4版本，包含ca，可通过调整参数定制网络
-    $ ./byfn.sh -m up -i 1.4.7 -a
-    ```
+#### 通过项目 [deploy-fabric](https://dev.stringon.com/yinminghao/deployfabirc) 启动网络
 
 ### 2.0 修改 demo/config.yaml
 

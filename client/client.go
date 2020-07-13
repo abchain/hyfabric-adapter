@@ -12,6 +12,8 @@ import (
 	"hyperledger.abchain.org/adapter/hyfabric/client/ledger"
 	"hyperledger.abchain.org/chaincode/lib/caller"
 	"hyperledger.abchain.org/client"
+
+	"strings"
 )
 
 func init() {
@@ -21,7 +23,10 @@ func init() {
 	client.Client_Impls["hyfabric"] = NewRPCConfig
 }
 
-const userType = "user"
+const (
+	userType   = "user"
+	registered = "is already registered"
+)
 
 type hyFabricClient struct {
 	chainInfo client.ChainInfo
@@ -61,8 +66,11 @@ func (c *hyFabricClient) Load(vp *viper.Viper) error {
 			Secret:      secret,
 			CAName:      caId,
 		})
+
 		if err != nil {
-			return err
+			if !strings.Contains(err.Error(), registered) {
+				return err
+			}
 		}
 
 		err = mspClient.Enroll(user, msp.WithSecret(secret))

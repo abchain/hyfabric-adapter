@@ -1,0 +1,9 @@
+fabric:
+  # fabric sdk config
+  configpath: "config.yaml"
+  channelid: "mychannel"
+  user: "stringon"
+  org: "org1"
+  # password
+  secret: "pass"
+  caid:
