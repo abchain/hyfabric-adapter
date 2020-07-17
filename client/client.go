@@ -47,22 +47,32 @@ func (c *hyFabricClient) Load(vp *viper.Viper) error {
 	channelId := vp.GetString("channelid")
 	user := vp.GetString("user")
 	org := vp.GetString("org")
+	mspOpts := []msp.ClientOption{}
+	//if we specified org, just overwrite the org in client block
+	if org != "" {
+		//notice: orgname (withorg opt) is only used for obtaining the corresponding
+		//signing identify from organization manager, so if we have get identify,
+		//no orgname is needed
+		mspOpts = append(mspOpts, msp.WithOrg(org))
+	}
 
 	// get user, if user is not exist, register and enroll.
-	mspClient, err := msp.New(sdk.Context())
+	mspClient, err := msp.New(sdk.Context(), mspOpts...)
 	if err != nil {
 		return err
 	}
-	_, err = mspClient.GetSigningIdentity(user)
+	sid, err := mspClient.GetSigningIdentity(user)
 	if err == msp.ErrUserNotFound {
-		secret := vp.GetString("secret")
-		err = mspClient.Enroll(user, msp.WithSecret(secret))
-		if err != nil {
-			return err
+		if err = mspClient.Enroll(user, msp.WithSecret(vp.GetString("secret"))); err == nil {
+			sid, err = mspClient.GetSigningIdentity(user)
 		}
 	}
 
-	chC := sdk.ChannelContext(channelId, fabsdk.WithUser(user), fabsdk.WithOrg(org))
+	if err != nil {
+		return err
+	}
+
+	chC := sdk.ChannelContext(channelId, fabsdk.WithIdentity(sid))
 	// get fabric ledger client
 	ledgerCli, err := fledger.New(chC)
 	if err != nil {
