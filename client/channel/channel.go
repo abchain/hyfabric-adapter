@@ -43,11 +43,8 @@ func (c *Client) Invoke(method string, arg [][]byte) (string, error) {
 		//TransientMap:    nil,
 		//InvocationChain: nil,
 	})
-	if err != nil {
-		return "", err
-	}
 
-	return string(resp.TransactionID), nil
+	return string(resp.TransactionID), err
 }
 
 // Deploy is actually instantiates chaincode
