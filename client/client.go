@@ -21,11 +21,6 @@ func init() {
 	client.Client_Impls["hyfabric"] = NewRPCConfig
 }
 
-const (
-	userType   = "user"
-	registered = "is already registered"
-)
-
 type hyFabricClient struct {
 	chainInfo client.ChainInfo
 	caller    rpc.Caller
@@ -92,7 +87,7 @@ func (c *hyFabricClient) Load(vp *viper.Viper) error {
 	return nil
 }
 
-// Caller Assign each http request (run cocurrency) a client, which can be adapted to a caller
+// Caller Assign each http request (run concurrency) a client, which can be adapted to a caller
 // the client is "lazy" connect: it just do connect when required (a request has come)
 // and wait for connect finish
 func (c *hyFabricClient) Caller(spec *client.RpcSpec) (rpc.Caller, error) {

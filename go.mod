@@ -18,4 +18,5 @@ require (
 	go.uber.org/zap v1.15.0 // indirect
 	golang.org/x/net v0.0.0-20200602114024-627f9648deb9 // indirect
 	hyperledger.abchain.org v0.2.0
+	bsn-sdk-go v0.0.0
 )
