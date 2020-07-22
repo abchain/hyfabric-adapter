@@ -20,4 +20,4 @@ require (
 	hyperledger.abchain.org v0.2.0
 )
 
-replace bsn-sdk-go => ./bsnclient/bsn-sdk-go
+replace bsn-sdk-go => hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go v0.1.0

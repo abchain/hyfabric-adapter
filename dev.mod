@@ -21,7 +21,7 @@ require (
 )
 
 replace (
-	bsn-sdk-go => ./bsnclient/bsn-sdk-go
+	bsn-sdk-go => hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go v0.1.0
 	github.com/hyperledger/fabric-sdk-go => dev.stringon.com/abchain/fabric-sdk-go.git v1.0.0-beta2-priv
 	hyperledger.abchain.org => dev.stringon.com/abchain/hyperledger.git v0.2.2
 )
