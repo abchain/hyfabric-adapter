@@ -2,6 +2,7 @@ package bsnclient
 
 import (
 	msp "bsn-sdk-go/pkg/core/entity/req/fabric/user"
+	"encoding/base64"
 	"fmt"
 	"github.com/spf13/viper"
 
@@ -89,7 +90,7 @@ func (c *hyFabricClient) Deploy(method string, arg [][]byte) (string, error) {
 func (c *hyFabricClient) Invoke(method string, arg [][]byte) (string, error) {
 	var args []string
 	for _, v := range arg {
-		args = append(args, string(v))
+		args = append(args, base64.RawStdEncoding.EncodeToString(v))
 	}
 
 	body := node.TransReqDataBody{
@@ -110,7 +111,7 @@ func (c *hyFabricClient) Invoke(method string, arg [][]byte) (string, error) {
 func (c *hyFabricClient) Query(method string, arg [][]byte) ([]byte, error) {
 	var args []string
 	for _, v := range arg {
-		args = append(args, string(v))
+		args = append(args, base64.RawStdEncoding.EncodeToString(v))
 	}
 
 	body := node.TransReqDataBody{

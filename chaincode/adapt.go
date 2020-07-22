@@ -1,6 +1,7 @@
 package chaincode
 
 import (
+	"encoding/base64"
 	"github.com/gogo/protobuf/proto"
 	fashim "github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-protos-go/peer"
@@ -13,11 +14,20 @@ const MultipleEvents = "multiple_events"
 
 type faChainCode struct {
 	yaCc yashim.Chaincode
+	//used for some special rpc, in which the arguments has to be transferred
+	//in plaintext rather than bytes, additional decoding of base64 is required
+	argEncoded bool
 }
 
 // AdaptChainCode convert abchain chaincode to fabric chaincode
 func AdaptChainCode(yaCc yashim.Chaincode) fashim.Chaincode {
 	return &faChainCode{yaCc: yaCc}
+}
+
+// AdaptChainCodeWithArgEncoded act as AdaptChainCode, with input arguments is
+// encoded by base64
+func AdaptChainCodeWithArgEncoded(yaCc yashim.Chaincode) fashim.Chaincode {
+	return &faChainCode{yaCc: yaCc, argEncoded: true}
 }
 
 func (f *faChainCode) Init(stub fashim.ChaincodeStubInterface) peer.Response {
@@ -31,6 +41,17 @@ func (f *faChainCode) Invoke(stub fashim.ChaincodeStubInterface) peer.Response {
 		function = string(args[0])
 		args = args[1:]
 	}
+
+	if f.argEncoded {
+		for i, arg := range args {
+			bt, err := base64.RawStdEncoding.DecodeString(string(arg))
+			if err != nil {
+				return fashim.Error(err.Error())
+			}
+			args[i] = bt
+		}
+	}
+
 	res, err := f.yaCc.Invoke(&adaptChainCodeStub{ChaincodeStubInterface: stub}, function, args, false)
 	if err != nil {
 		return fashim.Error(err.Error())
