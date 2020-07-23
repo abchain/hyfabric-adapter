@@ -1,12 +1,12 @@
 package fabric
 
 import (
-	nodereq "bsn-sdk-go/pkg/core/entity/req/fabric/node"
-	noderes "bsn-sdk-go/pkg/core/entity/res/fabric/node"
+	nodereq "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/req/fabric/node"
+	noderes "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/res/fabric/node"
 	"github.com/wonderivan/logger"
 
-	"bsn-sdk-go/pkg/core/trans"
-	"bsn-sdk-go/pkg/util/http"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/trans"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/http"
 	"encoding/json"
 )
 

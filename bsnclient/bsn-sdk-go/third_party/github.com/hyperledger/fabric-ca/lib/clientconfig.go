@@ -21,8 +21,8 @@ Please review third_party pinning scripts and patches for more details.
 package lib
 
 import (
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/api"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/lib/tls"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/api"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/lib/tls"
 	"github.com/hyperledger/fabric-sdk-go/pkg/common/providers/core"
 )
 

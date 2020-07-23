@@ -9,7 +9,7 @@ package fab
 import (
 	reqContext "context"
 
-	pb "bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/peer"
+	pb "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/peer"
 )
 
 // ProposalProcessor simulates transaction proposal, so that a client can submit the result for ordering.

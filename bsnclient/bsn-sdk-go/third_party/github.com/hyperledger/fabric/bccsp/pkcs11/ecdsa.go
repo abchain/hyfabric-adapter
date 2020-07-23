@@ -14,8 +14,8 @@ import (
 	"crypto/ecdsa"
 	"fmt"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp/utils"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp/utils"
 )
 
 func (csp *impl) signECDSA(k ecdsaPrivateKey, digest []byte, opts bccsp.SignerOpts) ([]byte, error) {

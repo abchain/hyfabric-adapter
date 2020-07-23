@@ -16,7 +16,7 @@ import (
 
 	"encoding/hex"
 
-	flogging "bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/logbridge"
+	flogging "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/logbridge"
 	"github.com/hyperledger/fabric-sdk-go/pkg/util/concurrent/lazycache"
 	"github.com/miekg/pkcs11"
 )

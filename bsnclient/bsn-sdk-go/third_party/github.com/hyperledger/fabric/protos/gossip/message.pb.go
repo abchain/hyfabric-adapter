@@ -10,7 +10,7 @@ package gossip // import "github.com/hyperledger/fabric-sdk-go/internal/github.c
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
-import common "bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/common"
+import common "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/common"
 
 import (
 	context "golang.org/x/net/context"

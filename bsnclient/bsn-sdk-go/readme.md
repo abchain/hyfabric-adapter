@@ -23,8 +23,8 @@
 需要引入下面的包
 ```
 import (
-    "bsn-sdk-go/pkg/client/fabric"
-    "bsn-sdk-go/pkg/core/config"
+    "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/client/fabric"
+    "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/config"
 	)
 ```
 #### 初始化config

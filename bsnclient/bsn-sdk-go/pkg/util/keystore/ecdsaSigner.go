@@ -1,9 +1,9 @@
 package keystore
 
 import (
-	"bsn-sdk-go/pkg/common/errors"
-	ecdsaUtil "bsn-sdk-go/pkg/util/esdsa"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/common/errors"
+	ecdsaUtil "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/esdsa"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
 	"crypto"
 	"crypto/x509"
 	"io"

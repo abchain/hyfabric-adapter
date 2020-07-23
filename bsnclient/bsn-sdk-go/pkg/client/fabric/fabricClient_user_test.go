@@ -1,8 +1,8 @@
 package fabric
 
 import (
-	config2 "bsn-sdk-go/pkg/core/config"
-	req "bsn-sdk-go/pkg/core/entity/req/fabric/user"
+	config2 "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/config"
+	req "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/req/fabric/user"
 	"fmt"
 	"testing"
 )

@@ -1,7 +1,7 @@
 package keystore
 
 import (
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
 )
 
 // ECDSAP256KeyGenOpts contains options for ECDSA key generation with curve P-256.

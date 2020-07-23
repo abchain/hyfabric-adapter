@@ -1,8 +1,8 @@
 package keystore
 
 import (
-	"bsn-sdk-go/pkg/core/entity/msp"
-	"bsn-sdk-go/pkg/util/userstore"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/msp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/userstore"
 	"fmt"
 	"testing"
 )

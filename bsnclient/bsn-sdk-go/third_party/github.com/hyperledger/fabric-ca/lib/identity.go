@@ -17,12 +17,12 @@ import (
 	"strconv"
 	"strings"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/api"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/lib/client/credential"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/lib/client/credential/x509"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/lib/common"
-	log "bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/sdkpatch/logbridge"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/util"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/api"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/lib/client/credential"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/lib/client/credential/x509"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/lib/common"
+	log "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/sdkpatch/logbridge"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/util"
 	"github.com/pkg/errors"
 )
 

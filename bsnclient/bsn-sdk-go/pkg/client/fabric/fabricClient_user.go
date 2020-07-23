@@ -1,15 +1,15 @@
 package fabric
 
 import (
-	userreq "bsn-sdk-go/pkg/core/entity/req/fabric/user"
-	userres "bsn-sdk-go/pkg/core/entity/res/fabric/user"
+	userreq "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/req/fabric/user"
+	userres "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/res/fabric/user"
 
-	"bsn-sdk-go/pkg/common/errors"
-	"bsn-sdk-go/pkg/core/cert"
-	"bsn-sdk-go/pkg/core/entity/base"
-	"bsn-sdk-go/pkg/core/entity/msp"
-	"bsn-sdk-go/pkg/util/http"
-	"bsn-sdk-go/pkg/util/keystore"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/common/errors"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/cert"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/base"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/msp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/http"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/keystore"
 
 	"encoding/json"
 	"fmt"

@@ -18,9 +18,9 @@ import (
 	"time"
 
 	"github.com/golang/protobuf/proto"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/discovery"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/gossip"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/msp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/discovery"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/gossip"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/msp"
 	"github.com/pkg/errors"
 )
 

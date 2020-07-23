@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"io"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
 )
 
 // GetRandomBytes returns len random looking bytes

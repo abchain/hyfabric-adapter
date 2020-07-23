@@ -16,7 +16,7 @@ import (
 
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/timestamp"
-	cb "bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/common"
+	cb "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/common"
 	"github.com/pkg/errors"
 )
 

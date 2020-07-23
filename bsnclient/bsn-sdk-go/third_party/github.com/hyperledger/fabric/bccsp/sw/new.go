@@ -15,7 +15,7 @@ import (
 	"crypto/sha512"
 	"reflect"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/sha3"
 )

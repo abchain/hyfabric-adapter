@@ -1,8 +1,8 @@
 package cert
 
 import (
-	"bsn-sdk-go/pkg/util/keystore"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/keystore"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
 	"encoding/hex"
 	"fmt"
 	"github.com/cloudflare/cfssl/csr"

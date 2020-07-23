@@ -16,9 +16,9 @@ import (
 	"crypto/x509"
 	"os"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp/sw"
-	flogging "bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/logbridge"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp/sw"
+	flogging "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/logbridge"
 	sdkp11 "github.com/hyperledger/fabric-sdk-go/pkg/core/cryptosuite/common/pkcs11"
 	"github.com/pkg/errors"
 )

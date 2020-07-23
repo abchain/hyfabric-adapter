@@ -15,7 +15,7 @@ import (
 	"fmt"
 	"net/http"
 
-	flogging "bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/logbridge"
+	flogging "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/logbridge"
 )
 
 //go:generate counterfeiter -o fakes/logging.go -fake-name Logging . Logging

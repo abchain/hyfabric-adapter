@@ -1,8 +1,8 @@
 package keystore
 
 import (
-	"bsn-sdk-go/pkg/common/errors"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/common/errors"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
 	"crypto/ecdsa"
 	"crypto/x509"
 	"encoding/pem"

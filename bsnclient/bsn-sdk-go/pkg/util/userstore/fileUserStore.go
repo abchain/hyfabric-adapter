@@ -1,8 +1,8 @@
 package userstore
 
 import (
-	"bsn-sdk-go/pkg/common/errors"
-	"bsn-sdk-go/pkg/core/entity/msp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/common/errors"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/msp"
 	"io/ioutil"
 	"os"
 	path2 "path"

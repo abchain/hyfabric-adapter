@@ -13,7 +13,7 @@ import (
 import "fmt"
 import "math"
 import "github.com/hyperledger/fabric-sdk-go/internal/github.com/hyperledger/fabric/protos/gossip"
-import "bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/msp"
+import "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/msp"
 
 import (
 	"golang.org/x/net/context"

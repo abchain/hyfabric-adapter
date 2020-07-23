@@ -1,7 +1,7 @@
 package sm2
 
 import (
-	"bsn-sdk-go/pkg/common/errors"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/common/errors"
 	"encoding/pem"
 	"fmt"
 	"github.com/tjfoc/gmsm/sm2"

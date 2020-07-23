@@ -19,9 +19,9 @@ import (
 	"fmt"
 
 	"github.com/golang/protobuf/proto"
-	factory "bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/cryptosuitebridge"
+	factory "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/cryptosuitebridge"
 	"github.com/hyperledger/fabric-sdk-go/pkg/common/providers/core"
-	m "bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/msp"
+	m "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/msp"
 	"github.com/pkg/errors"
 )
 

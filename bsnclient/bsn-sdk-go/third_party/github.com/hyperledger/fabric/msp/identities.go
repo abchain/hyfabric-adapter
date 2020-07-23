@@ -22,10 +22,10 @@ import (
 	"time"
 
 	"github.com/golang/protobuf/proto"
-	bccsp "bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/cryptosuitebridge"
-	flogging "bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/logbridge"
-	logging "bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/logbridge"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/msp"
+	bccsp "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/cryptosuitebridge"
+	flogging "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/logbridge"
+	logging "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/logbridge"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/msp"
 	"github.com/pkg/errors"
 )
 

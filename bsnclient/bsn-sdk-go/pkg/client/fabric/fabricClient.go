@@ -1,11 +1,11 @@
 package fabric
 
 import (
-	"bsn-sdk-go/pkg/client"
-	"bsn-sdk-go/pkg/core/config"
-	"bsn-sdk-go/pkg/core/entity/msp"
-	"bsn-sdk-go/pkg/util/keystore"
-	"bsn-sdk-go/pkg/util/userstore"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/client"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/config"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/msp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/keystore"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/userstore"
 	"github.com/wonderivan/logger"
 )
 

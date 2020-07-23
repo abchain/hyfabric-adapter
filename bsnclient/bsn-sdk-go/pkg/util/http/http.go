@@ -1,7 +1,7 @@
 package http
 
 import (
-	"bsn-sdk-go/pkg/common/errors"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/common/errors"
 	"bytes"
 	"crypto/tls"
 	"crypto/x509"

@@ -14,12 +14,12 @@ import (
 	"fmt"
 
 	"github.com/golang/protobuf/proto"
-	commonledger "bsn-sdk-go/third_party/github.com/hyperledger/fabric/common/ledger"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/common/metrics"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/common"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/ledger/rwset"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/ledger/rwset/kvrwset"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/peer"
+	commonledger "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/common/ledger"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/common/metrics"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/common"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/ledger/rwset"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/ledger/rwset/kvrwset"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/peer"
 )
 
 // Initializer encapsulates dependencies for PeerLedgerProvider

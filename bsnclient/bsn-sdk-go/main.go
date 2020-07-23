@@ -7,16 +7,16 @@
 package main
 
 import (
-	"bsn-sdk-go/pkg/client/fabric"
-	"bsn-sdk-go/pkg/core/config"
-	"bsn-sdk-go/pkg/core/entity/req/fabric/user"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/client/fabric"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/config"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/req/fabric/user"
 	"fmt"
 	"log"
 )
 
 func main()  {
 
-	fmt.Println("bsn-sdk-go")
+	fmt.Println("hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go")
 
 	api:="" //节点网关地址
 	userCode:="" //用户编号

@@ -14,8 +14,8 @@ import (
 	"strings"
 
 	"github.com/hyperledger/fabric-sdk-go/internal/github.com/hyperledger/fabric/core/ledger"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/common"
-	pb "bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/peer"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/common"
+	pb "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/peer"
 )
 
 // Collection defines a common interface for collections

@@ -1,7 +1,7 @@
 package cache
 
 import (
-	"bsn-sdk-go/pkg/util/cache/proc"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/cache/proc"
 	"time"
 )
 

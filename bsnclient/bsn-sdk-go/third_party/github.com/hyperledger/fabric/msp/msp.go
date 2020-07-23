@@ -13,7 +13,7 @@ package msp
 import (
 	"time"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/msp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/msp"
 )
 
 // IdentityDeserializer is implemented by both MSPManger and MSP

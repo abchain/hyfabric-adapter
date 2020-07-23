@@ -21,10 +21,10 @@ import (
 	"sync"
 	"time"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/cachebridge"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/cachebridge"
 	sdkp11 "github.com/hyperledger/fabric-sdk-go/pkg/core/cryptosuite/common/pkcs11"
 
-	logging "bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/logbridge"
+	logging "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/logbridge"
 	"github.com/miekg/pkcs11"
 )
 

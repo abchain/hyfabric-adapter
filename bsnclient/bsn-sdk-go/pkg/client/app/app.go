@@ -1,9 +1,9 @@
 package app
 
 import (
-	"bsn-sdk-go/pkg/core/entity/req"
-	"bsn-sdk-go/pkg/core/entity/res"
-	"bsn-sdk-go/pkg/util/http"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/req"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/res"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/http"
 	"encoding/json"
 )
 

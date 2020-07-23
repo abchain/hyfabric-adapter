@@ -17,11 +17,11 @@ import (
 
 	"net/http"
 
-	factory "bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/sdkpatch/cryptosuitebridge"
-	log "bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/sdkpatch/logbridge"
+	factory "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/sdkpatch/cryptosuitebridge"
+	log "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/sdkpatch/logbridge"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/api"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/lib/client/credential"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/api"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/lib/client/credential"
 	"github.com/hyperledger/fabric-sdk-go/internal/github.com/hyperledger/fabric-ca/util"
 	"github.com/pkg/errors"
 )

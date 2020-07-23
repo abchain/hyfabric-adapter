@@ -1,7 +1,7 @@
 package userstore
 
 import (
-	"bsn-sdk-go/pkg/core/entity/msp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/msp"
 )
 
 type UserStore interface {

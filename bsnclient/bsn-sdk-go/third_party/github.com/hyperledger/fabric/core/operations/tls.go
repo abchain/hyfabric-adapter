@@ -15,7 +15,7 @@ import (
 	"crypto/x509"
 	"io/ioutil"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/core/comm"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/core/comm"
 )
 
 type TLS struct {

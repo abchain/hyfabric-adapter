@@ -1,14 +1,14 @@
 package bsnclient
 
 import (
-	msp "bsn-sdk-go/pkg/core/entity/req/fabric/user"
 	"encoding/base64"
 	"fmt"
 	"github.com/spf13/viper"
+	msp "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/req/fabric/user"
 
-	"bsn-sdk-go/pkg/client/fabric"
-	"bsn-sdk-go/pkg/core/config"
-	"bsn-sdk-go/pkg/core/entity/req/fabric/node"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/client/fabric"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/config"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/req/fabric/node"
 	"hyperledger.abchain.org/chaincode/lib/caller"
 	"hyperledger.abchain.org/client"
 )

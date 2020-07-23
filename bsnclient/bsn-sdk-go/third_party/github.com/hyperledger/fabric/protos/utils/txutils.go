@@ -12,8 +12,8 @@ package utils
 
 import (
 	"github.com/golang/protobuf/proto"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/common"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/peer"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/common"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/peer"
 	"github.com/pkg/errors"
 )
 

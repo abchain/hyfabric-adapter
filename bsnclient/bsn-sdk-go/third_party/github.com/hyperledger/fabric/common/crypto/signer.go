@@ -11,7 +11,7 @@ Please review third_party pinning scripts and patches for more details.
 package crypto
 
 import (
-	cb "bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/common"
+	cb "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/common"
 )
 
 // LocalSigner is a temporary stub interface which will be implemented by the local MSP

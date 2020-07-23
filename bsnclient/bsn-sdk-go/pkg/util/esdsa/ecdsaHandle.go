@@ -1,7 +1,7 @@
 package ecdsa
 
 import (
-	"bsn-sdk-go/pkg/common/errors"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/common/errors"
 	"crypto/ecdsa"
 	"crypto/sha256"
 	"encoding/pem"

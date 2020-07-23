@@ -14,9 +14,9 @@ import (
 	"crypto"
 	"crypto/ecdsa"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
-	cspsigner "bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp/signer"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp/utils"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
+	cspsigner "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp/signer"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp/utils"
 	"github.com/hyperledger/fabric-sdk-go/pkg/common/providers/core"
 	"github.com/hyperledger/fabric-sdk-go/pkg/core/cryptosuite"
 )

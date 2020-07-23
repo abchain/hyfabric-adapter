@@ -1,6 +1,6 @@
 package event
 
-import "bsn-sdk-go/pkg/core/entity/base"
+import "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/base"
 
 type QueryResData struct {
 	base.BaseResModel

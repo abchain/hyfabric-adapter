@@ -1,15 +1,15 @@
 package trans
 
 import (
-	"bsn-sdk-go/pkg/core/entity/msp"
-	"bsn-sdk-go/pkg/util/keystore"
-	"bsn-sdk-go/pkg/util/userstore"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/msp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/keystore"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/userstore"
 	"encoding/base64"
 	"fmt"
 	"github.com/golang/protobuf/proto"
 	"testing"
 
-	pb "bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/peer"
+	pb "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/peer"
 )
 
 func TestGetRequestData(t *testing.T) {

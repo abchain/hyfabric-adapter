@@ -25,9 +25,9 @@ import (
 	"crypto/x509"
 	"time"
 
-	factory "bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/sdkpatch/cryptosuitebridge"
-	log "bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/sdkpatch/logbridge"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/util"
+	factory "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/sdkpatch/cryptosuitebridge"
+	log "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/sdkpatch/logbridge"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/util"
 	"github.com/hyperledger/fabric-sdk-go/pkg/common/providers/core"
 	"github.com/pkg/errors"
 )

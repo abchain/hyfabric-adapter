@@ -17,7 +17,7 @@ import (
 	"encoding/pem"
 	"net/http"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/util"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/util"
 	"github.com/pkg/errors"
 )
 

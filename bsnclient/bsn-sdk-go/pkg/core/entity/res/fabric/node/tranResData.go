@@ -1,7 +1,7 @@
 package node
 
 import (
-	"bsn-sdk-go/pkg/core/entity/base"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/base"
 	"strconv"
 )
 

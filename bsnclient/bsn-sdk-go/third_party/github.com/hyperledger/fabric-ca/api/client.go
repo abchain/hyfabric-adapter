@@ -15,7 +15,7 @@ import (
 	"time"
 
 	"github.com/cloudflare/cfssl/csr"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/util"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-ca/util"
 )
 
 // RegistrationRequest for a new identity

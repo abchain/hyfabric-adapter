@@ -3,7 +3,6 @@ module hyperledger.abchain.org/adapter/hyfabric
 go 1.12
 
 require (
-	bsn-sdk-go v0.0.0
 	github.com/fsouza/go-dockerclient v1.6.5 // indirect
 	github.com/gogo/protobuf v1.3.1
 	github.com/golang/protobuf v1.4.2
@@ -20,4 +19,4 @@ require (
 	hyperledger.abchain.org v0.2.0
 )
 
-replace bsn-sdk-go => hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go v0.1.0
+

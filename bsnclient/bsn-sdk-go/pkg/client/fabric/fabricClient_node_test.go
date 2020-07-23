@@ -1,9 +1,9 @@
 package fabric
 
 import (
-	config2 "bsn-sdk-go/pkg/core/config"
-	req "bsn-sdk-go/pkg/core/entity/req/fabric/node"
-	"bsn-sdk-go/pkg/util/crypto"
+	config2 "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/config"
+	req "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/req/fabric/node"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/crypto"
 	"encoding/base64"
 	"fmt"
 	"testing"

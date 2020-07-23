@@ -1,17 +1,17 @@
 package client
 
 import (
-	"bsn-sdk-go/pkg/common/errors"
-	"bsn-sdk-go/pkg/core/config"
-	"bsn-sdk-go/pkg/core/entity/base"
-	"bsn-sdk-go/pkg/core/entity/enum"
-	"bsn-sdk-go/pkg/core/entity/msp"
-	"bsn-sdk-go/pkg/core/sign"
-	"bsn-sdk-go/pkg/util/esdsa"
-	"bsn-sdk-go/pkg/util/keystore"
-	"bsn-sdk-go/pkg/util/sm2"
-	"bsn-sdk-go/pkg/util/userstore"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/common/errors"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/config"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/base"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/enum"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/msp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/sign"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/esdsa"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/keystore"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/sm2"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/userstore"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
 
 	"github.com/wonderivan/logger"
 )

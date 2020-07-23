@@ -1,6 +1,6 @@
 package req
 
-import "bsn-sdk-go/pkg/core/entity/base"
+import "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/base"
 
 type AppInfoReqData struct {
 	base.BaseReqModel

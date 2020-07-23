@@ -1,7 +1,7 @@
 package trans
 
 import (
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric-sdk-go/pkg/common/providers/fab"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric-sdk-go/pkg/common/providers/fab"
 )
 
 // TransactionHeader contains metadata for a transaction created by the SDK.

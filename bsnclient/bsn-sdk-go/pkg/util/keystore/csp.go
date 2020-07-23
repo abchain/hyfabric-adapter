@@ -5,7 +5,7 @@ import (
 	"crypto/elliptic"
 	"github.com/pkg/errors"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
 )
 
 func BCCSPKeyRequestGenerate(ks bccsp.KeyStore) (bccsp.Key, crypto.Signer, error) {

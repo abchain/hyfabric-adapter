@@ -1,8 +1,8 @@
 package app
 
 import (
-	"bsn-sdk-go/pkg/core/entity/base"
-	"bsn-sdk-go/pkg/core/entity/req"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/base"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/req"
 	"fmt"
 	"testing"
 )

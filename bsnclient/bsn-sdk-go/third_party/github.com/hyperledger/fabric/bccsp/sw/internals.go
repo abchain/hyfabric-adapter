@@ -23,7 +23,7 @@ package sw
 import (
 	"hash"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
 )
 
 // KeyGenerator is a BCCSP-like interface that provides key generation algorithms

@@ -11,8 +11,8 @@ Please review third_party pinning scripts and patches for more details.
 package discovery
 
 import (
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/discovery"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/gossip"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/discovery"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/gossip"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc"
 )

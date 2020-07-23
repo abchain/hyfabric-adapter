@@ -13,8 +13,8 @@ package operations
 import (
 	"sync"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/common/metrics"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/common/metrics/prometheus"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/common/metrics"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/common/metrics/prometheus"
 )
 
 var (

@@ -1,11 +1,11 @@
 package config
 
 import (
-	"bsn-sdk-go/pkg/client/app"
-	"bsn-sdk-go/pkg/common/errors"
-	"bsn-sdk-go/pkg/core/entity/base"
-	"bsn-sdk-go/pkg/core/entity/enum"
-	"bsn-sdk-go/pkg/core/entity/req"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/client/app"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/common/errors"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/base"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/enum"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/req"
 	"path"
 )
 

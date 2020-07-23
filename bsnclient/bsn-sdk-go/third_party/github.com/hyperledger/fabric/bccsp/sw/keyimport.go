@@ -28,8 +28,8 @@ import (
 	"fmt"
 	"reflect"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp/utils"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp/utils"
 )
 
 type aes256ImportKeyOptsKeyImporter struct{}

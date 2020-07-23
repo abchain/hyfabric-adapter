@@ -18,8 +18,8 @@ import (
 	"time"
 
 	"github.com/golang/protobuf/proto"
-	bccsp "bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/cryptosuitebridge"
-	m "bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/msp"
+	bccsp "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/cryptosuitebridge"
+	m "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/msp"
 	errors "github.com/pkg/errors"
 )
 

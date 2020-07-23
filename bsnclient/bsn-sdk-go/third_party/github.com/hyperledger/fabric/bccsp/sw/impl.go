@@ -24,8 +24,8 @@ import (
 	"reflect"
 	"RedNodeGateway/pkg/nodelog"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
-	flogging "bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/logbridge"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
+	flogging "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/logbridge"
 	"github.com/pkg/errors"
 )
 

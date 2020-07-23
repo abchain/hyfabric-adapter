@@ -1,11 +1,11 @@
 package fabric
 
 import (
-	resBase "bsn-sdk-go/pkg/core/entity/base"
-	eventreq "bsn-sdk-go/pkg/core/entity/req/fabric/event"
-	eventres "bsn-sdk-go/pkg/core/entity/res/fabric/event"
+	resBase "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/base"
+	eventreq "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/req/fabric/event"
+	eventres "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/core/entity/res/fabric/event"
 
-	"bsn-sdk-go/pkg/util/http"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/util/http"
 	"encoding/json"
 	"github.com/wonderivan/logger"
 )

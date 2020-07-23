@@ -28,7 +28,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
 )
 
 // rsaPublicKey reflects the ASN.1 structure of a PKCS#1 public key.

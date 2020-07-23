@@ -26,7 +26,7 @@ import (
 
 	"io"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp/utils"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp/utils"
 	"github.com/pkg/errors"
 )
 

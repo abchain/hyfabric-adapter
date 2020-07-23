@@ -31,7 +31,7 @@ import (
 	"math/big"
 	"time"
 
-	utils "bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/cryptosuitebridge"
+	utils "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/cryptosuitebridge"
 	"github.com/pkg/errors"
 )
 

@@ -35,8 +35,8 @@ import (
 
 	"RedNodeGateway/pkg/nodelog"
 
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp/utils"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/bccsp/utils"
 )
 
 // NewFileBasedKeyStore instantiated a file-based key store at a given position.

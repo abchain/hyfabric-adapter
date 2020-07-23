@@ -1,8 +1,8 @@
 package msp
 
 import (
-	"bsn-sdk-go/pkg/common/errors"
-	pb_msp "bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/msp"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/pkg/common/errors"
+	pb_msp "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/msp"
 	"crypto/ecdsa"
 	"github.com/golang/protobuf/proto"
 )

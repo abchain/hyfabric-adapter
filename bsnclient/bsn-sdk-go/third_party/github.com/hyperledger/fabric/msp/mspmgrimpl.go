@@ -22,8 +22,8 @@ package msp
 
 import (
 	"github.com/golang/protobuf/proto"
-	flogging "bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/logbridge"
-	"bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/msp"
+	flogging "hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/sdkpatch/logbridge"
+	"hyperledger.abchain.org/adapter/hyfabric/bsnclient/bsn-sdk-go/third_party/github.com/hyperledger/fabric/protos/msp"
 	"github.com/pkg/errors"
 )
 
